@@ -3,6 +3,7 @@ package com.ameen.sb.service;
 import com.ameen.sb.data.Department;
 import com.ameen.sb.exception.NoRecordException;
 import com.ameen.sb.repository.DepartmentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,16 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
+@Slf4j
 public class DepartmentService {
     @Autowired
     DepartmentRepository repo;
 
 
     public Department saveDepartment(Department department){
-        department.setCode(department.getName()+new Random().nextInt(1,10));
+        int deptIdSfx = new Random().nextInt(1, 10);
+        log.info(" deptIdSfx :: "+deptIdSfx);
+        department.setCode(department.getName()+deptIdSfx);
         return repo.save(department);
     }
 
